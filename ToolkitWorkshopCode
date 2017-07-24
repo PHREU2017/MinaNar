@@ -1,0 +1,54 @@
+/******************************************************************************
+This example code reads the input from a LilyPad Light Sensor and displays in
+the Serial Monitor.
+
+Light Sensor connections:
+   * S pin to A3
+   * + pin to A5/A2
+   * - to -
+******************************************************************************/
+
+// Set which pin the Signal output from the light sensor is connected to
+// If using the LilyPad Development Board, change this to A6
+int sensorPin = A3;
+int ledPin1 = 5;
+// Create a variable to hold the light reading
+int lightValue;
+// The dark variable determines when we turn the LEDs on or off.
+// Set higher or lower to adjust sensitivity.
+const int darkLevel = 100;
+
+void setup()
+{
+    // Set sensorPin as an INPUT
+    pinMode(sensorPin, INPUT);
+
+    // Set pin A5/A2 to use as a power pin for the light sensor
+    // If using the LilyPad Development Board, comment out these lines of code
+    pinMode(A2, OUTPUT);
+    pinMode(ledPin1, OUTPUT);
+    digitalWrite(A2, HIGH);
+
+    // Initialize Serial, set the baud rate to 9600 bps.
+    Serial.begin(9600);
+}
+
+void loop()
+{
+
+   // Get the current light level
+    lightValue = analogRead(sensorPin);
+
+    Serial.print("Light value is:");
+    Serial.println(lightValue);
+
+      if (lightValue <= darkLevel) // If the reading is less then 'darkLevel'
+    {
+        digitalWrite(ledPin1, LOW); // Turn on LED
+ 
+    }
+    else {
+  digitalWrite(ledPin1, HIGH);
+    }
+
+}
